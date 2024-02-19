@@ -1,0 +1,10 @@
+input.ng-invalid.ng-touched {
+    border: 1px solid red;
+  }
+ .message{
+
+  font-style: italic;
+  font-weight: 500;
+  color:#da0833;
+
+ } 

@@ -1,0 +1,35 @@
+<!-- Navigation Start  -->
+<nav class="navbar navbar-default navbar-sticky bootsnav">
+
+ <div class="container">      
+   <!-- Start Header Navigation -->
+   <div class="navbar-header">
+     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
+       <i class="fa fa-bars"></i>
+     </button>
+     <a class="navbar-brand" href="index.html"  routerLink="/"><img [src]="logo" class="logo" alt=""></a>
+   </div>
+   <!-- End Header Navigation -->
+
+   <!-- Collect the nav links, forms, and other content for toggling -->
+   <div class="collapse navbar-collapse" id="navbar-menu">
+     <ul class="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp">
+         <li><a routerLink="/">Home</a></li> 
+         <li *ngIf="auth.loggedIn"><a routerLink="/browser">Browse Jobs</a></li>  
+         <li *ngIf="auth.administrator"><a routerLink="/job">Jobs</a></li>  
+        <!--
+         <li  *ngIf="auth.administrator" class="dropdown" >
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin</a>
+              <ul class="dropdown-menu animated fadeOutUp" style="display: none; opacity: 1;">
+                <li class="active"><a routerLink="/jobs">Jobs</a></li>
+            
+              </ul>
+            </li>
+          -->
+         <li *ngIf="!auth.loggedIn"><a routerLink="/login">Login</a></li>
+         <li *ngIf="auth.loggedIn"><a routerLink="/login" (click)="logout()">Logout</a></li>
+       </ul>
+   </div><!-- /.navbar-collapse -->
+ </div>   
+</nav>
+<!-- Navigation End  -->

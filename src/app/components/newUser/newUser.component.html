@@ -1,0 +1,65 @@
+<section class="login-wrapper">
+  <div class="container">
+    <div class="col-md-6 col-sm-8 col-md-offset-3 col-sm-offset-2">
+      <form  [formGroup]="userForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label>User</label>
+          <input
+            type="text"
+             required
+            name="username"
+            class="form-control"
+            placeholder="Enter a username"
+            [formControlName]="'username'"
+          />
+          <span
+          *ngIf="
+            !userForm.get('username')?.valid &&
+            userForm.get('username')?.touched
+          "
+          class="help-block"
+        >
+          Please enter valid username
+        </span>
+        </div>
+        <div class="form-group mt-2">
+          <label>Password</label>
+          <input
+            type="password"
+            name="password"
+            required
+            class="form-control"
+            placeholder="Enter a password"
+            [formControlName]="'password'"
+           
+          />
+          <span
+          *ngIf="
+            !userForm.get('password')?.valid &&
+            userForm.get('password')?.touched
+          "
+          class="help-block"
+        >
+          Please enter valid password
+        </span>
+          
+        </div>
+        <div class="form-group">
+          <label>Rol</label>
+          <select
+            name="rol"
+            [formControlName]="'rol'"
+             class="form-control"
+          >
+            <option value="user">User</option>
+            <option value="administrator">Administrator</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-4" [disabled]="userForm.invalid" >Submit</button>
+        <p>{{mensaje}}</p>
+    <!--<pre class="mt-4"> {{ userForm.value | json }}</pre>-->  
+      </form>
+    </div>
+  </div>
+</section>

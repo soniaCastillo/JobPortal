@@ -1,0 +1,55 @@
+<section class="login-wrapper">
+  <div class="container">
+    <div class="col-md-6 col-sm-8 col-md-offset-3 col-sm-offset-2">
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+        
+          <input
+            type="text"
+            required
+            name="username"
+            class="form-control"
+            placeholder="User"
+            [formControlName]="'username'"
+          />
+          <span
+          *ngIf="
+            !loginForm.get('username')?.valid &&
+            loginForm.get('username')?.touched
+          "
+          class="help-block"
+        >
+          Please enter valid username
+        </span>
+        </div>
+        <div class="form-group mt-2">
+        
+          <input
+            type="password"
+            name="password"
+            required
+            class="form-control"
+            placeholder="Password"
+            [formControlName]="'password'"
+           
+          />
+          <span
+          *ngIf="
+            !loginForm.get('password')?.valid &&
+            loginForm.get('password')?.touched
+          "
+          class="help-block"
+        >
+          Please enter valid password
+        </span>
+          
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-4" [disabled]="loginForm.invalid" >Submit</button>
+        <p>Have't Any Account <a class="message" href="newUser">Create An Account</a></p>
+        <!--<pre class="mt-4"> {{ loginForm.value | json }}</pre>--> 
+        <p class="message">{{mensaje}}</p>
+      </form>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,140 @@
+<section class="login-wrapper">
+  <div class="container">
+    <div class="col-md-6 col-sm-8 col-md-offset-3 col-sm-offset-2">
+      <form  [formGroup]="jobForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label>Title</label>
+          <input
+            type="text"
+             required
+            name="title"
+            class="form-control"
+            placeholder="Enter a title"
+            [formControlName]="'title'"
+          />
+          <span
+          *ngIf="
+            !jobForm.get('title')?.valid &&
+            jobForm.get('title')?.touched
+          "
+          class="help-block"
+        >
+          Please enter valid title
+        </span>
+        </div>
+        <div class="form-group">
+          <label>Category</label>
+          <select
+            name="category"
+            [formControlName]="'category'"
+            class="form-control">
+            <option value="All">All</option>
+            <option value="Front End">Front End</option>
+            <option value="Back End">Back End</option>
+            <option value="Full Stack">Full Stack</option>
+
+          </select>
+          <span class="help-block" *ngIf="jobForm.get('category')?.hasError('categoryInvalid') && jobForm.get('category')?.touched">
+            Por favor, selecciona una opción válida en la categoría.
+          </span>
+        </div>
+
+        <div class="form-group mt-2">
+          <label>Company</label>
+          <input
+            type="company"
+            name="company"
+            required
+            class="form-control"
+            placeholder="Enter a company"
+            [formControlName]="'company'"
+           
+          />
+          <span
+          *ngIf="
+            !jobForm.get('company')?.valid &&
+            jobForm.get('company')?.touched
+          "
+          class="help-block"
+        >
+          Please enter valid company
+        </span>
+          
+        </div>
+       
+        <div class="form-group mt-2">
+          <label>Salary Range</label>
+          <input
+            type="salary"
+            name="salary"
+            required
+            class="form-control"
+            placeholder="6000-6500"
+            [formControlName]="'salary'"
+           
+          />
+          <span
+          *ngIf="
+            !jobForm.get('salary')?.valid &&
+            jobForm.get('salary')?.touched
+          "
+          class="help-block"
+        >
+          Please enter valid range salary
+        </span>
+          
+        </div>
+       
+        <div class="form-group mt-2">
+          <label>Location</label>
+          <input
+            type="location"
+            name="location"
+            required
+            class="form-control"
+            placeholder="Enter a location"
+            [formControlName]="'location'"
+           
+          />
+          <span
+          *ngIf="
+            !jobForm.get('location')?.valid &&
+            jobForm.get('location')?.touched
+          "
+          class="help-block"
+        >
+          Please enter valid location
+        </span>
+          
+        </div>
+       
+        <div class="form-group mt-2">
+          <label>Description</label>
+          <textarea
+            type="description"
+            name="description"
+            required
+            class="form-control"
+            placeholder="Enter a description"
+            [formControlName]="'description'"
+           
+            ></textarea>
+          <span
+          *ngIf="
+            !jobForm.get('description')?.valid &&
+            jobForm.get('description')?.touched
+          "
+          class="help-block"
+           >
+          Please enter valid description
+        </span>
+          
+        </div>
+       
+        <button type="submit" class="btn btn-primary mt-4" [disabled]="jobForm.invalid">Submit</button>
+        <p>{{mensaje}}</p>
+      
+      </form>
+    </div>
+  </div>
+</section>
