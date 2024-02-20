@@ -27,13 +27,15 @@
               "src/assets"
             ],
             "styles": [
-              "src/assets/css/plugins.css",
+           
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+         
               "src/assets/css/common.css",
               "src/assets/css/main.css"
             ],
             "scripts": [
               "src/assets/js/jquery.min.js",
-              "src/assets/js/bootstrap.min.js",
+              "./node_modules/bootstrap/dist/js/bootstrap.min.js",
               "src/assets/js/owl.carousel.min.js",
               "src/assets/js/bootsnav.js",
               "src/assets/js/main.js"

@@ -16,7 +16,7 @@
      <ul class="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp">
          <li><a routerLink="/">Home</a></li> 
          <li *ngIf="auth.loggedIn"><a routerLink="/browser">Browse Jobs</a></li>  
-         <li *ngIf="auth.administrator"><a routerLink="/job">Jobs</a></li>  
+         <li *ngIf="auth.administrator"><a routerLink="/jobList">Jobs</a></li>  
         <!--
          <li  *ngIf="auth.administrator" class="dropdown" >
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin</a>

@@ -7,6 +7,7 @@ import { NewUserComponent } from "./components/newUser/newUser.component";
 import { GuardAdminService } from "./services/guardAdmin.service";
 import { JobComponent } from "./components/job/job.component";
 import { GuardLoginService } from "./services/guardLogin.service";
+import { JobsListComponent } from "./components/jobsList/jobsList.component";
 
 // this names have to be the same inside menu component
 const routes:Routes=[
@@ -16,6 +17,7 @@ const routes:Routes=[
     { path: 'login', component: LoginComponent },
     { path: 'newUser', component: NewUserComponent },
     { path: 'job', component: JobComponent, canActivate: [GuardAdminService,GuardLoginService] },
+    { path: 'jobList', component: JobsListComponent, canActivate: [GuardAdminService,GuardLoginService] },
 ];
 
 @NgModule({

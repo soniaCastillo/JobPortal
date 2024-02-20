@@ -16,6 +16,7 @@ export class AuthenticationService {
     }
     logout() {
       this.loggedIn = false;
+      this.administrator = false;
     }
      isAuthenticated() {
     

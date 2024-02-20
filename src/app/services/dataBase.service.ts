@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Firestore, addDoc, collection, collectionData, query, where } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, collectionData, deleteDoc, doc, getDocs, query, updateDoc, where } from '@angular/fire/firestore';
 import { Login } from '../interfaces/login.interface';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { AuthenticationService } from './authentication.service';
 import { Job } from '../interfaces/job.interface';
-
+import { DocumentReference, CollectionReference } from '@angular/fire/firestore';
 @Injectable({
   providedIn: 'root'
 })
@@ -12,6 +12,12 @@ import { Job } from '../interfaces/job.interface';
 export class DataBaseService {
   items: Observable<any[]> | undefined;
   exist : boolean | undefined;
+  // to update
+  private jobSubject = new BehaviorSubject<{ id: string, data: Job } | null>(null);
+  job$ = this.jobSubject.asObservable();
+
+  jobChanges: Subject<void> = new Subject<void>(); // notify if there is changes
+  
 constructor(private firestore:Firestore, private auth:AuthenticationService) { }
 
 // **************** User ****************************
@@ -41,7 +47,7 @@ searchUser(user: string, password: string): Promise<boolean>
         this.exist = true; // Update this.Data.exist when user is found
         if (snapshot[0]['rol'] === "administrator") {
           this.auth.administrator = true;
-        
+          console.log('Es administrador');
         }
         resolve(true); // Resolve the promise with true if user is found
       }
@@ -63,4 +69,71 @@ async addJob(job: Job): Promise<void> {
   }
 }
 
+async getJobs(): Promise<{ id: string, data: Job }[]> {
+  try {
+    const querySnapshot = await getDocs(collection(this.firestore, 'Jobs'));
+    const jobs: { id: string, data: Job }[] = [];
+    querySnapshot.forEach(doc => {
+      const job = doc.data() as Job;
+      const id = doc.id;
+      jobs.push({ id, data: job });
+    });
+    console.log('Jobs retrieved successfully:', jobs);
+    return jobs;
+  } catch (error) {
+    console.error('Error getting jobs:', error);
+    throw error;
+  }
+}
+
+async getJobsByParameter(user: string): Promise<Job[]> {
+  try {
+    const querySnapshot = await getDocs(query(collection(this.firestore, 'Jobs'), where('parameterName', '==', user)));
+    const jobs: Job[] = [];
+    querySnapshot.forEach(doc => {
+      const job = doc.data() as Job;
+      jobs.push(job);
+    });
+    console.log('Jobs retrieved successfully:', jobs);
+    return jobs;
+  } catch (error) {
+    console.error('Error getting jobs:', error);
+    throw error;
+  }
+}
+
+
+async updateJob(id: string, updatedJob: Partial<Job>): Promise<void> {
+  try {
+    const jobRef = doc(collection(this.firestore, 'Jobs'), id);
+    await updateDoc(jobRef, updatedJob);
+    console.log('Job updated successfully:', id);
+  } catch (error) {
+    console.error('Error updating job:', error);
+    throw error;
+  }
+}
+
+async deleteJob(id: string): Promise<void>  {
+  try {
+    const jobRef = doc(collection(this.firestore, 'Jobs'), id);
+    await deleteDoc(jobRef);
+    console.log('Job deleted successfully:', id);
+  } catch (error) {
+    console.error('Error deleting job:', error);
+    throw error;
+  }
+}
+
+setJob(job: { id: string, data: Job }) {
+  this.jobSubject.next(job);
+}
+
+getJob(): { id: string, data: Job } | null {
+  return this.jobSubject.value;
+}
+// Call this method after a successful update or insertion
+notifyJobChanges() {
+  this.jobChanges.next();
+}
 }

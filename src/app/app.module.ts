@@ -17,6 +17,7 @@ import { AppRoutingModule } from './app.routing.module';
 import { HomeComponent } from './components/home/home.component';
 import { NewUserComponent } from './components/newUser/newUser.component';
 import { JobComponent } from './components/job/job.component';
+import { JobsListComponent } from './components/jobsList/jobsList.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { JobComponent } from './components/job/job.component';
     FooterComponent,
     HomeComponent,
     NewUserComponent,
-    JobComponent
+    JobComponent,
+    JobsListComponent
     
   ],
   imports: [

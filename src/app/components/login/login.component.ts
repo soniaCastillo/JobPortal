@@ -20,7 +20,7 @@ export class LoginComponent {
   // console.log(""+this.Data.exist);
    if(this.Data.exist)
    {
-      this.loginForm.reset();
+      
       this.router.navigate(['/home']);
    }
    else
@@ -28,11 +28,12 @@ export class LoginComponent {
       this.mensaje = "username or password is incorrect";
 
    }
+  
    
   }
 
   ngOnInit(): void {
-
+  //  this.loginForm.reset();
    this.loginForm = new FormGroup({
                     username: new FormControl(null, Validators.required),
                     password: new FormControl(null, [Validators.required])
